@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
+const App = styled.div`
+  width: 100vw;
+  height: 100vh
 `
 
-export default () => <Title>My page</Title>
+export default () => <App>My page</App>
