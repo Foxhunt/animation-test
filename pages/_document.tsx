@@ -1,18 +1,5 @@
-import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet, createGlobalStyle } from 'styled-components'
-
-const GlobalStyle = createGlobalStyle`
- body {
-   width: 100vw;
-   height: 100vh;
-
-   margin: 0px;
-
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
-`
+import Document, { DocumentContext } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -38,19 +25,5 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
-  }
-
-  render() {
-    return (
-      <html>
-        <Head>
-          <GlobalStyle />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
-    )
   }
 }
