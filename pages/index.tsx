@@ -14,7 +14,7 @@ const Svg = styled(motion.svg)`
   stroke-linecap: round;
 `
 
-const g: Variants = {
+const gAll: Variants = {
   hidden: {
     rotate: -45,
     scale: 1,
@@ -33,8 +33,8 @@ const g: Variants = {
     y: [0, -5, 0, 5, -5, -7, 5, 0],
     transition: {
       default: { duration: 0.5 },
-      x: { delay: 0.4, duration: 0.3 },
-      y: { delay: 0.4, duration: 0.3 },
+      x: { delay: 0.4, duration: 0.4 },
+      y: { delay: 0.4, duration: 0.4 },
     }
   }
 }
@@ -57,10 +57,14 @@ const paths: Variants = {
   expanded: (i: number) => ({
     stroke: "#000",
     pathLength: 1,
-    fill: "rgba(140, 255, 255, .8)",
+    fill: "rgba(165, 255, 255, 1)",
     x: 3 * i,
     transition: {
       default: { duration: 0.4 },
+      fill: {
+        delay: 0.7,
+        duration: 0.1
+      },
       x: {
         delay: 0.7,
         type: "spring",
@@ -75,34 +79,40 @@ const paths: Variants = {
 const circles: Variants = {
   hidden: {
     fill: "#000",
+    originX: "50%",
+    originY: "50%",
     r: 0,
   },
   visible: {
-    r: 0,
+    r: 1,
+    rotate: 90,
     y: 0,
     transition: {
-      default: { delay: 0.3, duration: 0.4 },
-      y: { duration: 0.3 },
+      default: { duration: 0.2 },
+      rotate: { duration: 0 },
     }
   },
   expanded: (i: number) => ({
     fill: "#000",
     r: 2,
-    y: 4 * i,
+    rotate: 0,
+    y: [ 1 * i, 2 * i],
     transition: {
-      default: {
+      default: { delay: 0.7, duration: 0.1 },
+      rotate: { delay: 0.2, duration: 0 },
+      y: {
+        from: 0,
         delay: 0.7,
-        type: "spring",
-        damping: 40,
-        mass: 1,
-        stiffness: 2000
+        duration: 5,
+        easings: "anticipate",
+        yoyo: Infinity
       }
     }
   })
-
 }
 
 const behinds = [4, 2]
+const behindCircles = [3, 7]
 
 export default () => {
   const animate = useAnimation()
@@ -119,15 +129,15 @@ export default () => {
     initial={"hidden"}
     animate={animate}>
     <motion.g
-      variants={g}>
-      {behinds.map(i =>
+      variants={gAll}>
+      {behindCircles.map(i =>
         <motion.circle
           key={"top" + i}
           custom={-i}
           cx={50}
           cy={15}
           variants={circles} />)}
-      {behinds.map(i =>
+      {behindCircles.map(i =>
         <motion.circle
           key={"bot" + i}
           custom={i}
