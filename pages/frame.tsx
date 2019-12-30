@@ -45,7 +45,7 @@ const frameLine: Variants = {
                 duration: 0
             },
             pathLength: {
-                duration: 2.5
+                duration: 2
             }
         }
     }
@@ -55,7 +55,7 @@ const frameGroup: Variants = {
     expanded: {
         transition: {
             delayChildren: 4.7,
-            staggerChildren: 2.5
+            staggerChildren: 2
         }
     }
 }
