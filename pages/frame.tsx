@@ -15,7 +15,7 @@ const circleTB: Variants = {
         }
     },
     expanded: (i: number) => ({
-        r: [2, 1],
+        r: [2, 0],
         y: [1 * i, 2 * i],
         transition: {
             default: {
@@ -26,6 +26,15 @@ const circleTB: Variants = {
             }
         }
     })
+}
+
+const frameGroup: Variants = {
+    expanded: {
+        transition: {
+            delayChildren: 5,
+            staggerChildren: .4
+        }
+    }
 }
 
 const frameLine: Variants = {
@@ -48,17 +57,8 @@ const frameLine: Variants = {
                 duration: 0
             },
             pathLength: {
-                duration: 2
+                duration: .5
             }
-        }
-    }
-}
-
-const frameGroup: Variants = {
-    expanded: {
-        transition: {
-            delayChildren: 5,
-            staggerChildren: 1.9
         }
     }
 }
@@ -84,7 +84,7 @@ const frameDots: Variants = {
         y,
         transition: {
             default: {
-                duration: 2
+                duration: .5
             },
             r: {
                 duration: 0
