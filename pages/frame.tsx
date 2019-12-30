@@ -117,5 +117,29 @@ export default function Frame() {
             cx={50}
             cy={85}
             variants={circleTB} />
+
+        <motion.circle
+            fill="red"
+            r={1}
+            cx={50 + 57 / 2}
+            cy={-7 + 57 / 2} />
+
+        <motion.circle
+            fill="red"
+            r={1}
+            cx={50 - 57 / 2}
+            cy={-7 + 57 / 2} />
+
+        <motion.circle
+            fill="red"
+            r={1}
+            cx={50 - 57 / 2}
+            cy={107 - 57 / 2} />
+
+        <motion.circle
+            fill="red"
+            r={1}
+            cx={50 + 57 / 2}
+            cy={107 - 57 / 2} />
     </>
 }
