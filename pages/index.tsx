@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { motion, useAnimation, Variants } from "framer-motion"
+import { motion, useAnimation, useCycle, Variants } from "framer-motion"
 
 import Diamond from "./diamond"
 import FloatingCircles from "./floatingCircles"
@@ -45,7 +45,7 @@ const gAll: Variants = {
 
 export default () => {
   const animate = useAnimation()
-  const [animationState, setAnimationState] = useState("expanded")
+  const [animationState, toggleAnimationState] = useCycle("expanded", "collapsed")
 
   useEffect(() => {
     animate.start(animationState)
@@ -53,7 +53,7 @@ export default () => {
 
   return <Svg
     onTap={() => {
-      setAnimationState(animationState === "expanded" ? "collapsed" : "expanded")
+      toggleAnimationState()
     }}
     initial={"hidden"}
     animate={animate}>
