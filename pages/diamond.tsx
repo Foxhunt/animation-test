@@ -20,7 +20,7 @@ const paths: Variants = {
         stroke: "#000",
         pathLength: 1,
         fill: "rgba(165, 255, 255, 1)",
-        x: [2 * i, 4 * i],
+        x: [2 * i, 3.5 * i],
         transition: {
             default: { duration: 0.4 },
             fill: {
