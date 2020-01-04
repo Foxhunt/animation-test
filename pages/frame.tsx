@@ -28,11 +28,28 @@ const circleTB: Variants = {
     })
 }
 
-const frameGroup: Variants = {
+const innerFrameGroup: Variants = {
     expanded: {
         transition: {
             delayChildren: 5,
-            staggerChildren: .9
+            staggerChildren: 1
+        }
+    }
+}
+
+const outerFrameGroup: Variants = {
+    expanded: {
+        transition: {
+            delayChildren: 5 + 4,
+            staggerChildren: 1
+        }
+    }
+}
+
+const finalFrameGroup: Variants = {
+    expanded: {
+        transition: {
+            delayChildren: 5 + 4 + 5
         }
     }
 }
@@ -50,11 +67,11 @@ const frameLine: Variants = {
         opacity: 0,
         transition: {
             default: {
-                duration: 0.5
+                duration: 0.1
             }
         }
     },
-    expanded: {
+    expanded: () => ({
         stroke: "#000",
         pathLength: 1,
         opacity: 1,
@@ -64,10 +81,10 @@ const frameLine: Variants = {
             },
             pathLength: {
                 duration: 1,
-                ease: "easeOut"
+                ease: "linear"
             }
         }
-    }
+    })
 }
 
 const frameDots: Variants = {
@@ -92,7 +109,7 @@ const frameDots: Variants = {
         transition: {
             default: {
                 duration: 1,
-                ease: "easeOut"
+                ease: "linear"
             },
             r: {
                 duration: 0
@@ -105,7 +122,7 @@ export default function Frame() {
     return <>
         {/* top left */}
         <motion.g
-            variants={frameGroup}>
+            variants={innerFrameGroup}>
             <motion.path
                 variants={frameLine}
                 d="M 50 -7L 29 14" />
@@ -128,55 +145,79 @@ export default function Frame() {
             <motion.path
                 variants={frameLine}
                 d="M 14 29L -7 50" />
-            <motion.circle
-                variants={frameDots}
-                cx={-7}
-                cy={50}
-                custom={{
-                    x: 0,
-                    y: -14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M -7 36L -7 22" />
-            <motion.circle
-                variants={frameDots}
-                cx={-7}
-                cy={22}
-                custom={{
-                    x: 0,
-                    y: -14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M -7 8L -7 -7L 8 -7" />
-            <motion.circle
-                variants={frameDots}
-                cx={8}
-                cy={-7}
-                custom={{
-                    x: 14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 22 -7L 36 -7" />
-            <motion.circle
-                variants={frameDots}
-                cx={36}
-                cy={-7}
-                custom={{
-                    x: -14,
-                    y: 14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 22 7l -14 0l 0 14" />
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={50}
+                    custom={{
+                        x: 0,
+                        y: -14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M -7 36L -7 22" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={22}
+                    custom={{
+                        x: 0,
+                        y: -14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M -7 8L -7 -7" />
+            </motion.g>
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={50}
+                    cy={-7}
+                    custom={{
+                        x: -14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 36 -7L 22 -7" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={22}
+                    cy={-7}
+                    custom={{
+                        x: -14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 8 -7L -7 -7" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={-7}
+                    custom={{
+                        x: 14,
+                        y: 14
+                    }} />
+            </motion.g>
+            {/* inner arrow */}
+            <motion.g
+                variants={finalFrameGroup}>
+                <motion.path
+                    variants={frameLine}
+                    d="M 7 7L 21 7" />
+                <motion.path
+                    variants={frameLine}
+                    d="M 7 7L 7 21" />
+            </motion.g>
         </motion.g>
 
         {/* top right */}
         <motion.g
-            variants={frameGroup}>
+            variants={innerFrameGroup}>
             <motion.path
                 variants={frameLine}
                 d="M 50 -7L 71 14" />
@@ -199,55 +240,81 @@ export default function Frame() {
             <motion.path
                 variants={frameLine}
                 d="M 86 29L 107 50" />
-            <motion.circle
-                variants={frameDots}
-                cx={50}
-                cy={-7}
-                custom={{
-                    x: 14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 64 -7L 78 -7" />
-            <motion.circle
-                variants={frameDots}
-                cx={78}
-                cy={-7}
-                custom={{
-                    x: 14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 92 -7L 107 -7L 107 8" />
-            <motion.circle
-                variants={frameDots}
-                cx={107}
-                cy={8}
-                custom={{
-                    x: 0,
-                    y: 14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 107 22L 107 36" />
-            <motion.circle
-                variants={frameDots}
-                cx={107}
-                cy={36}
-                custom={{
-                    x: -14,
-                    y: -14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 93 22l 0 -14l -14 0" />
+            {/* left to right */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={50}
+                    cy={-7}
+                    custom={{
+                        x: 14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 64 -7L 78 -7" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={78}
+                    cy={-7}
+                    custom={{
+                        x: 14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 92 -7L 107 -7" />
+            </motion.g>
+            {/* bottom to top */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={50}
+                    custom={{
+                        x: 0,
+                        y: -14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 107 36L 107 22" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={22}
+                    custom={{
+                        x: 0,
+                        y: -14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 107 8L 107 -7" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={-7}
+                    custom={{
+                        x: -14,
+                        y: 14
+                    }} />
+            </motion.g>
+            {/* inner arrow */}
+            <motion.g
+                variants={finalFrameGroup}>
+                <motion.path
+                    variants={frameLine}
+                    d="M 93 7L 79 7" />
+                <motion.path
+                    variants={frameLine}
+                    d="M 93 7L 93 21" />
+            </motion.g>
         </motion.g>
 
         {/* bottom left */}
         <motion.g
-            variants={frameGroup}>
+            variants={innerFrameGroup}>
             <motion.path
                 variants={frameLine}
                 d="M 50 107L 29 86" />
@@ -270,55 +337,81 @@ export default function Frame() {
             <motion.path
                 variants={frameLine}
                 d="M 14 71L -7 50" />
-            <motion.circle
-                variants={frameDots}
-                cx={50}
-                cy={107}
-                custom={{
-                    x: -14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 36 107L 22 107" />
-            <motion.circle
-                variants={frameDots}
-                cx={22}
-                cy={107}
-                custom={{
-                    x: -14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 8 107L -7 107L -7 92" />
-            <motion.circle
-                variants={frameDots}
-                cx={-7}
-                cy={92}
-                custom={{
-                    x: 0,
-                    y: -14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M -7 78L -7 64" />
-            <motion.circle
-                variants={frameDots}
-                cx={-7}
-                cy={64}
-                custom={{
-                    x: 14,
-                    y: 14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 7 78l 0 14l 14 0" />
+            {/* top to bottom */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={50}
+                    custom={{
+                        x: 0,
+                        y: 14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M -7 64L -7 78" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={78}
+                    custom={{
+                        x: 0,
+                        y: 14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M -7 92L -7 107" />
+            </motion.g>
+            {/* right to left */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={50}
+                    cy={107}
+                    custom={{
+                        x: -14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 36 107L 22 107" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={22}
+                    cy={107}
+                    custom={{
+                        x: -14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 8 107L -7 107" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={-7}
+                    cy={107}
+                    custom={{
+                        x: 14,
+                        y: -14
+                    }} />
+            </motion.g>
+            {/* inner arrow */}
+            <motion.g
+                variants={finalFrameGroup}>
+                <motion.path
+                    variants={frameLine}
+                    d="M 7 93L 7 79" />
+                <motion.path
+                    variants={frameLine}
+                    d="M 7 93L 21 93" />
+            </motion.g>
         </motion.g>
 
         {/* bottom right*/}
         <motion.g
-            variants={frameGroup}>
+            variants={innerFrameGroup}>
             <motion.path
                 variants={frameLine}
                 d="M 50 107L 71 86" />
@@ -341,50 +434,75 @@ export default function Frame() {
             <motion.path
                 variants={frameLine}
                 d="M 86 71L 107 50" />
-            <motion.circle
-                variants={frameDots}
-                cx={107}
-                cy={50}
-                custom={{
-                    x: 0,
-                    y: 14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 107 64L 107 78" />
-            <motion.circle
-                variants={frameDots}
-                cx={107}
-                cy={78}
-                custom={{
-                    x: 0,
-                    y: 14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 107 92L 107 107L 92 107" />
-            <motion.circle
-                variants={frameDots}
-                cx={92}
-                cy={107}
-                custom={{
-                    x: -14,
-                    y: 0
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 78 107L 64 107" />
-            <motion.circle
-                variants={frameDots}
-                cx={64}
-                cy={107}
-                custom={{
-                    x: 14,
-                    y: -14
-                }} />
-            <motion.path
-                variants={frameLine}
-                d="M 78 93l 14 0l 0 -14" />
+            {/* top to bottom */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={50}
+                    custom={{
+                        x: 0,
+                        y: 14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 107 64L 107 78" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={78}
+                    custom={{
+                        x: 0,
+                        y: 14
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 107 92L 107 107" />
+            </motion.g>
+            {/* left to right */}
+            <motion.g
+                variants={outerFrameGroup}>
+                <motion.circle
+                    variants={frameDots}
+                    cx={50}
+                    cy={107}
+                    custom={{
+                        x: 14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 64 107L 78 107" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={78}
+                    cy={107}
+                    custom={{
+                        x: 14,
+                        y: 0
+                    }} />
+                <motion.path
+                    variants={frameLine}
+                    d="M 92 107L 107 107" />
+                <motion.circle
+                    variants={frameDots}
+                    cx={107}
+                    cy={107}
+                    custom={{
+                        x: -14,
+                        y: -14
+                    }} />
+            </motion.g>
+            <motion.g
+                variants={finalFrameGroup}>
+                <motion.path
+                    variants={frameLine}
+                    d="M 93 93L 93 79" />
+                <motion.path
+                    variants={frameLine}
+                    d="M 93 93L 79 93" />
+            </motion.g>
         </motion.g>
 
         <motion.circle
