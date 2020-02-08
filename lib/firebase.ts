@@ -1,4 +1,7 @@
-import firebase from "firebase"
+import firebase from "firebase/app"
+import "firebase/database"
+import "firebase/firestore"
+import "firebase/analytics"
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
