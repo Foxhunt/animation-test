@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { motion, useAnimation, useCycle, Variants } from "framer-motion"
+import { motion, useAnimation, useCycle, Variants } from 'framer-motion'
 
 import Diamond from "./diamond"
 import FloatingCircles from "./floatingCircles"
 import Frame from './frame'
+
+import firebase from "../lib/firebase"
 
 const Svg = styled(motion.svg)`
   width: 100px;
@@ -46,6 +48,27 @@ const gAll: Variants = {
 export default () => {
   const animate = useAnimation()
   const [animationState, toggleAnimationState] = useCycle("expanded", "collapsed")
+
+  const [fsVal, setFSVal] = useState<any>(0)
+  const [dbVal, setDBVal] = useState(0)
+
+  useEffect(() => {
+    firebase.firestore().collection('test').doc("test").onSnapshot(doc => {
+      setFSVal(doc.data()?.test)
+    })
+    firebase.firestore().collection('write').doc("write").set({
+      now: Date.now()
+    })
+    firebase.database().ref('test').on('value', snapshot => {
+      setDBVal(snapshot.val())
+    })
+    firebase.analytics().logEvent("pageLoad")
+  }, [])
+
+  useEffect(() => {
+    console.log(dbVal)
+    console.log(fsVal)
+  }, [dbVal, fsVal])
 
   useEffect(() => {
     animate.start(animationState)
