@@ -13,7 +13,11 @@ const config = {
 
 if (!firebase.apps.length) {
   console.log(config)
-  console.log(JSON.parse(atob(process.env.GCLOUD_CREDENTIALS)))
+  if(window.atob) {
+    console.log(JSON.parse(atob(process.env.GCLOUD_CREDENTIALS || "")))
+  } else {
+    console.log(JSON.parse(Buffer.from(process.env.GCLOUD_CREDENTIALS || "", 'base64').toString()))
+  }
   firebase.initializeApp(config)
 }
 
